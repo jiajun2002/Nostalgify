@@ -113,8 +113,8 @@ def get_token():
 
 # function for creating oauth
 def create_spotify_oauth():
+  cache_path = f".cache-{session.get('uuid')}"
   return SpotifyOAuth(
-    cache_path = f".cache-{session.get('uuid')}"
     client_id= os.getenv('SPOTIPY_CLIENT_ID'),
     client_secret= os.getenv('SPOTIPY_CLIENT_SECRET'),
     redirect_uri= url_for('redirect_page', _external=True),
