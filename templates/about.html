@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      SpotifY2K
+    </title>
+      <link rel = "stylesheet" href= "{{ url_for('static', filename='styles.css') }}">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Iceberg&family=Jacquard+12&family=Jersey+15&family=Pixelify+Sans:wght@400..700&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap" rel="stylesheet">
+      <body>
+    <div class = 'welcome-page'>
+      <p class = 'logo-text'> SpotifY2K. </p>
+      <div class = 'privacy-container'>
+        <p class = 'privacy-heading'>
+          About SpotifY2K
+        </p>
+        <p class = 'privacy-text'>
+          SpotifY2K is an open source website that displays a user's top tracks and artists in a retro inspired aesthetic.
+        </p>
+        <p class = 'frequent-question'>
+          What do the numbers mean in the headers of top artists and tracks?
+        </p> 
+        <p class = 'about-text'>
+          The number highest to the logo is your most played - 1 is your most played and 10 is your 10th most played.
+        </p>
+        <p class = 'frequent-question'>
+          My list doesn't seem right, are you sure your data is correct?
+        </p> 
+        <p class = 'about-text'>
+          SpotifY2K uses data collected by Spotify in the past month, 6 months, and one year. If your list looks strange, there might be a slight offset in how Spotify collects data, or it might be a song or artist you listened to a long time ago!
+        </p>
+      </div>
+      <footer class = 'footer-container'>
+        <a class = 'footer-text' href = '/'> Home </a> &nbsp; | &nbsp;
+        <a class = 'footer-text' href = '/about'> About</a> &nbsp; | &nbsp;
+        <a class = 'footer-text' href = '/privacy'> Privacy Policy</a>  
+      </footer>
+    </div>
+  </body>
+</html>

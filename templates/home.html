@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      SpotifY2K
+    </title>
+      <link rel = "stylesheet" href= "{{ url_for('static', filename='styles.css') }}">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Iceberg&family=Jacquard+12&family=Jersey+15&family=Pixelify+Sans:wght@400..700&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap" rel="stylesheet">
+      <body>
+    <div class = 'welcome-page'>
+      <div class = 'logout-button-container'>
+        <button class = 'logout-button' onclick = "location.href = '/logout';">
+           Log Out &#10006;
+        </button>
+      </div>
+      <p class = 'logo-text'> SpotifY2K. </p>
+      <div class = 'tagline-box'>
+        <p class = 'tagline-home'> Your Spotify stats, but it's the year 2006 </p>
+      </div>
+
+      <div class = 'top-tracks-box'>
+        <div class = 'top-tracks-header'> 
+          <p class="top-tracks-header-title">
+            TOP TRACKS.exe
+          </p>
+        </div>
+        <div class = 'top-tracks-description'>
+          <p class = 'top-tracks-text'>
+          Tracks: &nbsp; Chosen time period? &nbsp;
+          </p>        
+          <img class = 'music-icon' src = "{{ url_for('static', filename = 'images/music.png')}}">
+        </div>
+        <button class = 'check-inbox-button' onclick = "location.href = '/tracks/short_term';"> 1 Month </button>
+        <button class = 'check-inbox-button' onclick = "location.href = '/tracks/medium_term';"> 6 Months </button>
+        <button class = 'check-inbox-button' onclick = "location.href = '/tracks/long_term';"> 12 Months </button>
+      </div>
+
+      <div class = 'top-tracks-box'>
+        <div class = 'top-artists-header'> 
+          <p class="top-tracks-header-title">
+            TOP ARTISTS.exe
+          </p>
+        </div>
+        <div class = 'top-tracks-description'>
+          <p class = 'top-tracks-text'>
+          Artists:&nbsp; Chosen time period? &nbsp;
+          </p>        
+          <img class = 'disk-icon' src = "{{ url_for('static', filename = 'images/disk.png')}}">
+        </div>
+        <button class = 'check-inbox-button' onclick = "location.href = '/artists/short_term';"> 1 Month </button>
+        <button class = 'check-inbox-button' onclick = "location.href = '/artists/medium_term';"> 6 Months </button>
+        <button class = 'check-inbox-button' onclick = "location.href = '/artists/long_term';"> 12 Months </button>
+      </div>
+      <footer class = 'footer-container'>
+        <a class = 'footer-text' href = '/'>Home </a> &nbsp; | &nbsp;
+        <a class = 'footer-text' href = '/about'> About</a> &nbsp; | &nbsp;
+        <a class = 'footer-text' href = '/privacy'> Privacy Policy</a>  
+      </footer>
+    </div>
+  </body>
+</html>

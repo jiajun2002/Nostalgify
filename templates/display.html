@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      SpotifY2K
+    </title>
+      <link rel = "stylesheet" href= "{{ url_for('static', filename='styles.css') }}">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Iceberg&family=Jacquard+12&family=Jersey+15&family=Pixelify+Sans:wght@400..700&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap" rel="stylesheet">
+    <body>
+    <div class = 'welcome-page'>
+      <p class = 'logo-text'> 
+        SpotifY2K.
+      </p>
+      <div class = 'back-button-container'>
+        <button class = 'back-button' onclick = "location.href = '/home';">
+          &#8592; Back
+        </button>
+      </div>
+      <div class = 'logout-button-container'>
+        <button class = 'logout-button' onclick = "location.href = '/logout';">
+          Log Out &#10006;
+        </button>
+      </div>
+    </div>
+    <div class = 'heading-description'>
+      <p class = 'description-text-song'>
+        Your Top Songs - {{ period }}.txt
+      </p>
+    </div>
+    <div class = 'main-display'>
+      {% for song in songs %}
+      <div class = 'full-song-box'>
+        <div class = 'song-header'>
+          <p class = 'song-header-text'>
+            songnumber{{ loop.index }}.exe
+           </p>
+        </div>
+        <div class = 'song-box'>
+          <div class = 'song-box-left'>
+            <img class = 'song-image' src= "{{ song.image }}">
+          </div>
+          <div class = 'song-box-mid'>
+            <p class = 'song-name'> {{ song.name }} </p>
+            <p class = 'song-artist'> {{ song.artist }} </p>
+          </div>
+          <div class = 'song-box-right'>
+            <p class = 'song-duration'> {{ song.duration }} </p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <footer class = 'footer-container'>
+        <a class = 'footer-text' href = '/'> Home </a> &nbsp; | &nbsp;
+        <a class = 'footer-text' href = '/about'> About</a> &nbsp; | &nbsp;
+        <a class = 'footer-text' href = '/privacy'> Privacy Policy</a>  
+      </footer>
+    </div>
+  </body>
+</html>

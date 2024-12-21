@@ -1,0 +1,532 @@
+body {
+  background: 
+    linear-gradient(rgba(252, 252, 255, 0.7) 1.2px, transparent 1.2px),
+    linear-gradient(90deg, rgba(252, 252, 255, 0.7) 1.2px, transparent 1.2px),
+    linear-gradient(to bottom,#ffabe7,#a3bcff);   
+  background-size: 38px 38px, 38px 38px, cover; 
+  background-attachment: fixed;  
+}
+
+.footer-container {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-text {
+  font-family: 'Pixelify Sans';
+}
+
+.welcome-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.privacy-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width:80%
+}
+
+.privacy-heading {
+  font-family: 'Jersey 15';
+  font-weight: bold;
+  font-size: 6vw;
+  margin-bottom: 0;
+}
+
+.frequent-question {
+  font-family: 'Pixelify Sans';
+  font-weight: bold;
+  font-size: 3vw;
+  text-align: center;
+  margin-bottom: 3px;
+}
+
+.privacy-text {
+  font-family: 'Pixelify Sans';
+  font-size: 3vw;
+  text-align: center;
+}
+
+.about-text {
+  margin-top: 0px;
+  font-family: 'Pixelify Sans';
+  font-size: 3vw;
+  text-align: center;
+}
+
+.logo-text {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-family: 'Jersey 15';
+  color: rgb(204, 146, 255);
+  font-size: 8vw;
+  font-weight: bold;
+  text-shadow: 
+    3px 3px 0 #000,
+    -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;;
+}
+
+.tagline-box {
+  display: flex;
+}
+
+.tagline {
+  font-family: 'Pixelify Sans';
+  font-style: italic;
+  border-right: 2px solid;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  animation: 
+    typing 2s steps(41),
+    cursor .4s step-end infinite alternate;
+}
+
+@keyframes cursor {
+  50% {border-color: transparent}
+}
+
+@keyframes typing {
+  from {width: 0}
+}
+
+.tagline-home {
+  font-family: 'Pixelify Sans';
+  font-style: italic;
+}
+
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 80px;
+  min-width: 40%;
+  max-width: 50%;
+  box-shadow: 4px 4px 2px;
+  margin-bottom: 15px;
+  border-color: rgb(119, 119, 119);
+  border-width: 2px;
+  border-style: solid;
+  background-color: rgb(196, 196, 196);
+}
+
+.login-box-header {
+  display: flex;
+  border-width: 0 0 2px 0;
+  border-color: rgb(119, 119, 119);
+  border-style: solid;
+  width: 100%;
+  height: 18px;
+  align-items: center;
+  background: rgb(27, 52, 212);
+}
+
+.login-box-header-text {
+  margin-left: 5px;
+  font-family: 'Pixelify Sans';
+  font-size: 12px;
+  color: white;
+}
+
+.login-box-message {
+  font-family: 'Pixelify Sans';
+}
+
+.login-button {
+  background-color: rgb(196, 196, 196); 
+  color: rgb(0, 0, 0);
+  box-shadow: 2px 2px 1px;
+  font-family: 'Pixelify Sans';
+  cursor: pointer;
+  transition: 0.15s;
+  border-color: #616161;
+  border-style: solid;
+  min-width: 20%;
+  min-height: 15%;
+  margin-bottom: 3%;
+}
+
+.play-icon {
+  width: 15px;
+  margin-bottom: 10px;
+}
+
+.logout-button-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.back-button-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.back-button,
+.logout-button {
+  font-size: 11px;
+  height: 5vh;
+  width: 10vw;
+  background-color: rgb(196, 196, 196); 
+  color: rgb(0, 0, 0);
+  box-shadow: 2px 2px 1px;
+  font-family: 'Pixelify Sans';
+  font-style: oblique;
+  cursor: pointer;
+  transition: 0.15s;
+  border-color: #616161;
+  border-style: solid;
+}
+
+.check-inbox-button:hover,
+.login-button:hover,
+.back-button:hover,
+.logout-button:hover {
+  opacity: 0.7;
+}
+
+.login-button:active,
+.back-button:active,
+.logout-button:active,
+.check-inbox-button:active {
+  opacity: 0.5;
+}
+
+.top-tracks-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 180px;
+  min-width: 40%;
+  max-width: 50%;
+  box-shadow: 4px 4px 2px;
+  margin-bottom: 30px;
+  border-color: rgb(119, 119, 119);
+  border-width: 1px;
+  border-style: solid;
+  background-color: rgb(196, 196, 196);
+}
+
+.top-artists-header,
+.top-tracks-header {
+  display: flex;
+  border-width: 0 0 1px 0;
+  border-color: rgb(119, 119, 119);
+  border-style: solid;
+  width: 100%;
+  height: 20px;
+  align-items: center;
+}
+
+.top-tracks-header {
+  background: rgb(255, 82, 148);
+}
+
+.top-artists-header {
+  background: rgb(44, 44, 255);
+}
+
+.top-tracks-header-title {
+  font-family: "Pixelify Sans";
+  color:white;
+  font-size: 80%;
+  padding-left: 5px;
+  margin: 0px;
+}
+
+.top-tracks-description {
+  display: flex;
+  align-items: center;
+}
+
+.disk-icon,
+.music-icon {
+  height: 14px;
+  width: 14px;
+}
+
+.top-tracks-text {
+  font-family: 'Pixelify Sans';
+  font-size: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.check-inbox-button {
+  background-color: rgb(207, 207, 207);
+  box-shadow: 2px 2px 1px;
+  font-size: 12px;
+  min-width: 30%;
+  padding: 5px;
+  margin-bottom: 5px;
+  font-family: 'Pixelify Sans';
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.heading-description {
+  display: flex;
+  justify-content: center;
+}
+
+.description-text-artist,
+.description-text-song {
+  margin-top: 0px;
+  font-family: 'Jersey 15';
+  font-size: 5vw;
+  font-weight: bold;
+  font-style: oblique;
+  text-shadow: 
+    2px 2px 0 #000,
+    -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;;
+}
+
+.description-text-song {
+  color: rgb(232, 141, 255);
+}
+
+.description-text-artist {
+  color: rgb(175, 164, 255);
+}
+
+.main-display {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-inline: 30px;
+}
+
+.full-artist-box,
+.full-song-box {
+  display: flex;
+  flex-direction: column;
+  margin-inline: auto;
+  width: 75%;
+  box-shadow: 4px 4px 2px;
+  margin-bottom: 15px;
+  border-color: rgb(119, 119, 119);
+  border-width: 1px;
+  border-style: solid;
+}
+
+.artist-header,
+.song-header {
+  display: flex;
+  flex: 1;
+  border-color: rgb(119, 119, 119);
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  align-items: center;
+}
+
+.song-header {
+  background: linear-gradient(to right, rgb(255, 155, 222), rgb(255, 204, 128), rgb(255, 185, 185));
+}
+
+.artist-header {
+  background: linear-gradient(to right, rgb(171, 181, 255), rgb(115, 210, 204), rgb(171, 181, 255));
+}
+
+.artist-header-text,
+.song-header-text {
+  margin-top: 1px;
+  margin-bottom: 1px;
+  margin-left: 0.5rem;
+  font-family: 'Pixelify Sans';
+  font-style: oblique;
+  font-size: 13px;
+}
+
+.song-box {
+  display: flex;
+  align-items: center;
+  min-height: 80px;
+  background-color: rgb(196, 196, 196);
+}
+
+.artist-box {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  background-color: rgb(196, 196, 196);
+}
+
+.artist-box-left,
+.song-box-left{
+  display: flex;
+  max-width: 10%;
+  min-height: 100%;
+  align-self: stretch;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.artist-image,
+.song-image {
+  width: 100%;
+  max-height: 80%;
+  object-fit: contain;
+  align-self: center;
+}
+
+.artist-box-right,
+.song-box-mid{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  flex-shrink: 1;
+  min-height: 100%;
+  align-self: stretch;
+  justify-content: space-evenly;
+}
+
+.artist-name,
+.song-name,
+.song-artist {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 1rem;
+}
+
+.artist-name,
+.song-name {
+  font-weight: bold;
+}
+
+.song-artist {
+  font-style: italic;
+}
+
+.artist-name,
+.song-name,
+.song-artist,
+.song-duration,
+.song-rank {
+  font-family: "Pixelify Sans";
+}
+
+.song-duration {
+  background-color: rgb(228, 228, 228);
+  box-shadow: 2px 2px 1px;
+  padding: 3px;
+}
+
+.song-box-right {
+  margin-right: 15px;
+}
+
+@media (max-width: 320px) {
+  .back-button,
+  .logout-button {
+    font-size: 7px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .tagline,
+  .tagline-home {
+    font-size: 12px;
+  }
+
+  .footer-text {
+    font-size: 10px;
+  }
+
+  .login-button {
+    font-size: 11px;
+  }
+
+  .login-box-message {
+    font-size: 12px;
+  } 
+
+  .top-tracks-box {
+    min-width: 80%
+  }
+
+  .check-inbox-button {
+    font-size: 11px;
+  }
+
+  .full-artist-box,
+  .full-song-box {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .artist-header,
+  .song-header {
+    height: 6px;
+  }
+
+  .artist-header-text,
+  .song-header-text {
+    font-size: 9px;
+  }
+
+  .artist-box {
+    height: 40px;
+  }
+
+  .song-box {
+    min-height: 40px;
+  }
+
+  .artist-name,
+  .song-artist,
+  .song-duration,
+  .song-name {
+    font-size: 0.5rem;
+  }
+
+  .back-button,
+  .logout-button {
+    font-size: 0.5rem; 
+    height: 3vh;        
+    width: 15vw;        
+  }
+}
+
+@media (min-width: 1024px) {
+  .top-tracks-box,
+  .full-artist-box,
+  .full-song-box {
+    width: 65%; 
+  }
+
+  .privacy-heading,
+  .logo-text {
+    font-size: 54px; 
+  }
+
+  .about-text,
+  .privacy-text,
+  .frequent-question {
+    font-size: 24px;
+  }
+
+  .description-text-song,
+  .description-text-artist {
+    font-size: 36px;
+  }
+
+  .back-button,
+  .logout-button {
+    font-size: 0.8rem;       
+  }
+}
