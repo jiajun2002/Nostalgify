@@ -1,6 +1,5 @@
 from flask import Flask, request, url_for, session, redirect, render_template
 import spotipy
-import uuid
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 import time
@@ -14,6 +13,7 @@ app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 app.config['SESSION_COOKIE_NAME'] = 'Tofuu Cookies'
 TOKEN_INFO = 'token_info'
+USER_ID = 'user_id' 
 
 # initial welcome page
 @app.route('/')
@@ -23,8 +23,6 @@ def welcome():
 # spotify's login screen
 @app.route('/login')
 def login():
-  if not session.get('uuid'):
-    session['uuid'] = str(uuid.uuid4())
   auth_url = create_spotify_oauth().get_authorize_url()
   return redirect(auth_url)
 
@@ -38,8 +36,14 @@ def redirect_page():
     return redirect(url_for('welcome')) 
   code = request.args.get('code')
   token_info = create_spotify_oauth().get_access_token(code)
+  if not token_info:
+    return redirect(url_for('welcome'))
+  
+  sp = spotipy.Spotify(auth=token_info['access_token'])
+  user = sp.me()
   session[TOKEN_INFO] = token_info
-  return redirect(url_for('home', external = True))
+  session[USER_ID] = user['id']
+  return redirect(url_for('home', _external=True))
 
 # homepage
 @app.route('/home')
@@ -54,7 +58,6 @@ def home():
 # logout page
 @app.route('/logout')
 def logout():
-  cache_path = f".cache-{session.get('uuid')}"
   session.clear()
   if os.path.exists(".cache"):
     os.remove(".cache")
@@ -99,8 +102,9 @@ def top_items(item_type, time_duration):
 
 # function for getting token
 def get_token():
+  user_id = session.get(USER_ID, None)
   token_info = session.get(TOKEN_INFO, None)
-  if not token_info:
+  if not token_info or not user_id:
     raise Exception("User not logged in")
 
   # if token is expired, refresh
@@ -109,18 +113,17 @@ def get_token():
   if (is_expired):
     sp_oauth = create_spotify_oauth()
     token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
+    session[TOKEN_INFO] = token_info
   return token_info
 
 # function for creating oauth
 def create_spotify_oauth():
-  cache_path = f".cache-{session.get('uuid')}"
   return SpotifyOAuth(
     client_id= os.getenv('SPOTIPY_CLIENT_ID'),
     client_secret= os.getenv('SPOTIPY_CLIENT_SECRET'),
     redirect_uri= url_for('redirect_page', _external=True),
     scope='user-top-read',
-    show_dialog=True,
-    cache_path=cache_path)
+    show_dialog=True)
     
 # function for getting items
 def get_top_items(item_type, time_duration):
