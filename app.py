@@ -1,5 +1,6 @@
 from flask import Flask, request, url_for, session, redirect, render_template
 import spotipy
+import uuid
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 import time
@@ -22,6 +23,8 @@ def welcome():
 # spotify's login screen
 @app.route('/login')
 def login():
+  if not session.get('uuid'):
+    session['uuid'] = str(uuid.uuid4())
   auth_url = create_spotify_oauth().get_authorize_url()
   return redirect(auth_url)
 
@@ -51,6 +54,7 @@ def home():
 # logout page
 @app.route('/logout')
 def logout():
+  cache_path = f".cache-{session.get('uuid')}"
   session.clear()
   if os.path.exists(".cache"):
     os.remove(".cache")
@@ -110,11 +114,13 @@ def get_token():
 # function for creating oauth
 def create_spotify_oauth():
   return SpotifyOAuth(
+    cache_path = f".cache-{session.get('uuid')}"
     client_id= os.getenv('SPOTIPY_CLIENT_ID'),
     client_secret= os.getenv('SPOTIPY_CLIENT_SECRET'),
     redirect_uri= url_for('redirect_page', _external=True),
     scope='user-top-read',
-    show_dialog=True)
+    show_dialog=True,
+    cache_path=cache_path)
     
 # function for getting items
 def get_top_items(item_type, time_duration):
