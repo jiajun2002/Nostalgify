@@ -29,7 +29,8 @@ def login():
 # where users go after authorisation by spotify
 @app.route('/redirect')
 def redirect_page():
-  session.clear()
+  if 'TOKEN_INFO' in session:
+    session.pop(TOKEN_INFO)
   error = request.args.get('error')
   if error:
     print(f"Authorization error: {error}")
@@ -69,6 +70,8 @@ def about():
 @app.route('/<string:item_type>/<string:time_duration>')
 def top_items(item_type, time_duration):
   items = get_top_items(item_type, time_duration)
+  if items is None:
+    return redirect(url_for('login'))
   if item_type == 'tracks':
     songs = [
       {
@@ -121,8 +124,7 @@ def get_top_items(item_type, time_duration):
   try:
     token_info = get_token()
   except:
-    print("User not logged in")
-    return redirect(url_for('login', _external = False))
+    return None
   
   sp = spotipy.Spotify(auth=token_info['access_token'])
   if item_type == 'tracks':
@@ -140,4 +142,4 @@ def milli_to_min(duration):
   return str(minutes) + ':' + str(seconds)
 
 if __name__ == '__main__':
-    app.run()
+  app.run()
