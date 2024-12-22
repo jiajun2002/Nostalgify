@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 app.config['SESSION_COOKIE_NAME'] = 'Tofuu Cookies'
 TOKEN_INFO = 'token_info'
-USER_ID = 'user_id' 
+cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
 
 # initial welcome page
 @app.route('/')
@@ -36,13 +36,10 @@ def redirect_page():
     return redirect(url_for('welcome')) 
   code = request.args.get('code')
   token_info = create_spotify_oauth().get_access_token(code)
-  if not token_info:
-    return redirect(url_for('welcome'))
   
-  sp = spotipy.Spotify(auth=token_info['access_token'])
-  user = sp.me()
+  sp_oath = create_spotify_oauth()
+  sp = spotipy.Spotify(sp_oath=sp_oath)
   session[TOKEN_INFO] = token_info
-  session[USER_ID] = user['id']
   return redirect(url_for('home', _external=True))
 
 # homepage
@@ -102,9 +99,8 @@ def top_items(item_type, time_duration):
 
 # function for getting token
 def get_token():
-  user_id = session.get(USER_ID, None)
   token_info = session.get(TOKEN_INFO, None)
-  if not token_info or not user_id:
+  if not token_info:
     raise Exception("User not logged in")
 
   # if token is expired, refresh
@@ -123,6 +119,7 @@ def create_spotify_oauth():
     client_secret= os.getenv('SPOTIPY_CLIENT_SECRET'),
     redirect_uri= url_for('redirect_page', _external=True),
     scope='user-top-read',
+    cache_handler=cache_handler,
     show_dialog=True)
     
 # function for getting items
