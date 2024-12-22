@@ -48,6 +48,9 @@
           </div>
           <div class = 'song-box-right'>
             <p class = 'song-duration'> {{ song.duration }} </p>
+            <a class = 'spotify-icon-container' href = '{{ song.link }}'>
+              <img class = 'spotify-icon' src = "{{ url_for('static', filename= 'images/Spotify_Primary_Logo_RGB_Black.png') }}">
+            </a>
           </div>
         </div>
       </div>
@@ -57,6 +60,7 @@
         <a class = 'footer-text' href = '/about'> About</a> &nbsp; | &nbsp;
         <a class = 'footer-text' href = '/privacy'> Privacy Policy</a>  
       </footer>
+      <img class = 'spotify-logo' src = "{{ url_for('static', filename = 'images/Spotify_Full_Logo_RGB_Black.png')}}">
     </div>
   </body>
 </html>

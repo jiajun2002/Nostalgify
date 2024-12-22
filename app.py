@@ -107,7 +107,8 @@ def top_items(item_type, time_duration):
         'name': track['name'], 
         'artist': ', '.join(artist['name'] for artist in track['artists']), 
         'duration': milli_to_min(track['duration_ms']),
-        'image': track['album']['images'][0]['url']  
+        'image': track['album']['images'][0]['url'],
+        'link': track['uri']  
       }
       for track in items['items']
     ]
@@ -117,7 +118,8 @@ def top_items(item_type, time_duration):
     artists = [
       {
         'name': artist['name'], 
-        'image': artist['images'][0]['url']
+        'image': artist['images'][0]['url'],
+        'link': artist['uri']
       }
       for artist in items['items']
     ]
