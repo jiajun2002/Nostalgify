@@ -420,7 +420,7 @@ body {
   align-self: stretch;
   align-items: center;
   justify-content: space-between;
-  padding-right: 15px;
+  padding-right: 10px;
 }
 
 .artist-name,
@@ -456,7 +456,7 @@ body {
 }
 
 .song-box-right {
-  margin-right: 15px;
+  margin-right: 10px;
   display: flex;
   align-items: center;
 }
