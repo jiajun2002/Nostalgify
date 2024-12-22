@@ -23,10 +23,12 @@ def get_cache_handler():
     
   class SessionCacheHandler(spotipy.cache_handler.CacheHandler):
     def get_cached_token(self):
-        return session.get(cache_key)    
+      token_key = f'spotify_token_{session.get("uuid")}'
+      return session.get(token_key)
     def save_token_to_cache(self, token_info):
-        session[cache_key] = token_info
-        return None
+      token_key = f'spotify_token_{session.get("uuid")}'
+      session[token_key] = token_info
+      return None
   return SessionCacheHandler()
 
 # initial welcome page
@@ -45,10 +47,13 @@ def login():
 @app.route('/redirect')
 def redirect_page():
   current_uuid = session.get('uuid')
-  session.clear()
   if current_uuid:
+    token_key = f'spotify_token_{current_uuid}'
+    if token_key in session:
+      del session[token_key]
+  else:
+    current_uuid = str(uuid.uuid4())
     session['uuid'] = current_uuid
-  session.clear()
 
   cache_handler = get_cache_handler()
   error = request.args.get('error')
@@ -73,10 +78,13 @@ def home():
 # logout page
 @app.route('/logout')
 def logout():
-  session.clear()
-  if os.path.exists(".cache"):
-    os.remove(".cache")
-    print("Logged out successfully")
+  if 'uuid' in session:
+    token_key = f'spotify_token_{session["uuid"]}'
+    if token_key in session:
+      del session[token_key]
+  if 'uuid' in session:
+    del session['uuid']
+    
   return redirect(url_for('welcome', _external = True))
 
 # privacy policy
