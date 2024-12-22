@@ -1,9 +1,9 @@
 from flask import Flask, request, url_for, session, redirect, render_template
 import spotipy
-from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 import time
 import os
+import uuid
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -13,7 +13,22 @@ app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 app.config['SESSION_COOKIE_NAME'] = 'Tofuu Cookies'
 TOKEN_INFO = 'token_info'
-cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+
+# cache handler that uses unique key for each user
+def get_cache_handler():
+  if 'uuid' not in session:
+    session['uuid'] = str(uuid.uuid4())  
+  cache_key = f'spotify_token_{session["uuid"]}'
+    
+  class SessionCacheHandler(spotipy.cache_handler.CacheHandler):
+    def get_cached_token(self):
+      token_key = f'spotify_token_{session.get("uuid")}'
+      return session.get(token_key)
+    def save_token_to_cache(self, token_info):
+      token_key = f'spotify_token_{session.get("uuid")}'
+      session[token_key] = token_info
+      return None
+  return SessionCacheHandler()
 
 # initial welcome page
 @app.route('/')
@@ -23,20 +38,30 @@ def welcome():
 # spotify's login screen
 @app.route('/login')
 def login():
-  auth_url = create_spotify_oauth().get_authorize_url()
+  cache_handler = get_cache_handler()
+  auth_url = create_spotify_oauth(cache_handler).get_authorize_url()
   return redirect(auth_url)
 
 # where users go after authorisation by spotify
 @app.route('/redirect')
 def redirect_page():
-  session.clear()
+  current_uuid = session.get('uuid')
+  if current_uuid:
+    token_key = f'spotify_token_{current_uuid}'
+    if token_key in session:
+      del session[token_key]
+  else:
+    current_uuid = str(uuid.uuid4())
+    session['uuid'] = current_uuid
+
+  cache_handler = get_cache_handler()
   error = request.args.get('error')
   if error:
     print(f"Authorization error: {error}")
     return redirect(url_for('welcome')) 
   code = request.args.get('code')
-  token_info = create_spotify_oauth().get_access_token(code)
-  session[TOKEN_INFO] = token_info
+  token_info = create_spotify_oauth(cache_handler).get_access_token(code)
+  cache_handler.save_token_to_cache(token_info)
   return redirect(url_for('home', _external=True))
 
 # homepage
@@ -52,10 +77,13 @@ def home():
 # logout page
 @app.route('/logout')
 def logout():
-  session.clear()
-  if os.path.exists(".cache"):
-    os.remove(".cache")
-    print("Logged out successfully")
+  if 'uuid' in session:
+    token_key = f'spotify_token_{session["uuid"]}'
+    if token_key in session:
+      del session[token_key]
+  if 'uuid' in session:
+    del session['uuid']
+
   return redirect(url_for('welcome', _external = True))
 
 # privacy policy
@@ -96,7 +124,8 @@ def top_items(item_type, time_duration):
 
 # function for getting token
 def get_token():
-  token_info = session.get(TOKEN_INFO, None)
+  cache_handler = get_cache_handler()
+  token_info = cache_handler.get_cached_token()
   if not token_info:
     raise Exception("User not logged in")
 
@@ -104,13 +133,13 @@ def get_token():
   now = int(time.time())
   is_expired = token_info['expires_at'] - now < 60
   if (is_expired):
-    sp_oauth = create_spotify_oauth()
+    sp_oauth = create_spotify_oauth(cache_handler)
     token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
-    session[TOKEN_INFO] = token_info
+    cache_handler.save_token_to_cache(token_info)
   return token_info
 
 # function for creating oauth
-def create_spotify_oauth():
+def create_spotify_oauth(cache_handler):
   return SpotifyOAuth(
     client_id= os.getenv('SPOTIPY_CLIENT_ID'),
     client_secret= os.getenv('SPOTIPY_CLIENT_SECRET'),
@@ -144,4 +173,4 @@ def milli_to_min(duration):
   return str(minutes) + ':' + str(seconds)
 
 if __name__ == '__main__':
-    app.run()
+  app.run()
