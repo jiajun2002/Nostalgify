@@ -36,9 +36,6 @@ def redirect_page():
     return redirect(url_for('welcome')) 
   code = request.args.get('code')
   token_info = create_spotify_oauth().get_access_token(code)
-  
-  sp_oath = create_spotify_oauth()
-  sp = spotipy.Spotify(sp_oath=sp_oath)
   session[TOKEN_INFO] = token_info
   return redirect(url_for('home', _external=True))
 
