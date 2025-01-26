@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
       Nostalgify
     </title>
-      <link rel = "stylesheet" href= "{{ url_for('static', filename='styles.css') }}">
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Iceberg&family=Jacquard+12&family=Jersey+15&family=Pixelify+Sans:wght@400..700&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap" rel="stylesheet">
-      <body>
+    <link rel = "stylesheet" href= "{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Iceberg&family=Jacquard+12&family=Jersey+15&family=Pixelify+Sans:wght@400..700&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap" rel="stylesheet">
+  </head>
+  <body>
     <div class = 'welcome-page'>
       <div class = 'logout-button-container'>
         <button class = 'logout-button' onclick = "location.href = '/logout';">
            Log Out &#10006;
         </button>
       </div>
-      <p class = 'logo-text'> Nostalgify. </p>
+      <h1> Nostalgify. </h1>
       <div class = 'tagline-box'>
         <p class = 'tagline-home'> Your Spotify stats, but it's the year 2006 </p>
       </div>
