@@ -1,5 +1,5 @@
- # SpotifY2K
- SpotifY2K is a web application that generates a users top tracks or artists in a retro aesthetic. 
+ # Nostalgify
+ Nostalgify is a web application that generates a users top tracks or artists in a retro aesthetic. 
 
  ## Creating your own credentials
  1. Go to https://developer.spotify.com/dashboard/login and create an account and  project
